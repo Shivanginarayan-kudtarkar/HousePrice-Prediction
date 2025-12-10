@@ -74,9 +74,9 @@ def index():
 def predict():
 
     # 🚨 User NOT logged in → redirect to login
-    if 'user_id' not in session:
-        flash("Please login to use the prediction tool", "error")
-        return redirect(url_for("login"))
+    # if 'user_id' not in session:
+    #     flash("Please login to use the prediction tool", "error")
+    #     return redirect(url_for("login"))
 
     # 🚨 If logged in → allow prediction
     if request.method == 'POST':
