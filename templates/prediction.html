@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: url("https://images.unsplash.com/photo-1570129477492-45c003edd2be")
+                       no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .prediction-card {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 35px;
+            border-radius: 15px;
+            max-width: 750px;
+            width: 100%;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #0d6efd !important;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        .btn-predict {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔵 Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">🏡 HomeValue AI</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link fw-bold" href="/">Home</a>
+                </li>
+
+                {% if session.get("user_id") %}
+                <li class="nav-item">
+                    <a class="nav-link fw-bold text-warning" href="/logout">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<!-- 🔵 Prediction Form -->
+<div class="prediction-card">
+    <h2 class="text-center text-primary fw-bold mb-3">
+        🏡 House Price Prediction
+    </h2>
+    <p class="text-center text-muted mb-4">
+        Enter the details below to estimate your house price.
+    </p>
+
+    <form action="{{ url_for('predict') }}" method="POST">
+
+        <div class="mb-3">
+            <label>Square Footage</label>
+            <input type="number" step="any" class="form-control" name="Square_Footage" required>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Number of Bedrooms</label>
+                <input type="number" class="form-control" name="Num_Bedrooms" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Number of Bathrooms</label>
+                <input type="number" class="form-control" name="Num_Bathrooms" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label>Year Built</label>
+            <input type="number" class="form-control" name="Year_Built" required>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Lot Size (in acres)</label>
+                <input type="number" step="any" class="form-control" name="Lot_Size" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Garage Size (No. of cars)</label>
+                <input type="number" class="form-control" name="Garage_Size" required>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label>Neighborhood Quality (1–10)</label>
+            <input type="number" class="form-control" min="1" max="10" name="Neighborhood_Quality" required>
+        </div>
+
+        <button class="btn btn-primary btn-predict">Predict Price</button>
+    </form>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
